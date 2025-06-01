@@ -1,7 +1,9 @@
 import React from 'react';
 import { Award, GraduationCap, Star } from 'lucide-react';
-import ravi from '../assets/doctors/ravi.png';
-import rino from '../assets/doctors/rino.png';
+import joshy from "../assets/doctors/joshy.png";
+import ravi from "../assets/doctors/ravi.png";
+import rino from "../assets/doctors/rino.png";
+
 
 const Team = () => {
   const topDoctors = [
@@ -42,8 +44,7 @@ const Team = () => {
     {
       name: 'Dr. Joshy P Abraham',
       role: 'Prosthodontist',
-      image:
-        'https://images.pexels.com/photos/3779701/pexels-photo-3779701.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      image: joshy,
       specialization: 'Dental Prosthetics',
       experience: 'Associate Prof. Pushpagiri Dental College',
     },
@@ -65,7 +66,7 @@ const Team = () => {
   ];
 
   const renderDoctorCard = (doctor, index, isTopDoctor = false) => (
-    <div key={index} className="group relative">
+    <div key={index} className=" group relative">
       <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
         {/* Chief Badge for Top Doctors */}
         {isTopDoctor && (
@@ -131,14 +132,13 @@ const Team = () => {
           </div>
         </div>
 
-        {/* Decorative Corner */}
-        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-gray-50 to-transparent"></div>
+       
       </div>
     </div>
   );
 
   return (
-    <section id="team" className="py-24 bg-white relative overflow-hidden">
+    <section id="team" className="py-24 bg-gradient-to-br from-primary-50 via-white to-primary-100 relative overflow-hidden">
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-1/4 right-0 w-96 h-96 bg-gray-600/10 rounded-full blur-3xl"></div>
@@ -148,9 +148,9 @@ const Team = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 relative">
         <div className="text-center mb-10">
           <h2 className="text-4xl font-light text-gray-900 mb-4">
-            Our <span className="font-semibold text-primary">Doctors</span>
+            Our <span className="font-semibold text-teal-600">Doctors</span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-400 mx-auto mb-4"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-teal-500 to-teal-400 mx-auto mb-4"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Highly qualified dental professionals ensuring the best care for you
             and your family

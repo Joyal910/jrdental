@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
 const Services = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const scrollContainerRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
   
@@ -138,48 +137,76 @@ const Services = () => {
     }
   ];
 
-  const itemsPerSlide = isMobile ? 1 : 5;
-  const maxSlide = services.length - itemsPerSlide;
+  // Create extended array for seamless looping
+  const extendedServices = [...services, ...services.slice(0, 5)];
+  const visibleCount = isMobile ? 1 : 5;
 
-  // Auto-scroll functionality
+  // Auto-play functionality
   useEffect(() => {
-    if (!isAutoScrolling) return;
+    if (!isAutoPlaying) return;
     
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => {
-        const nextSlide = prev + 1;
-        return nextSlide > maxSlide ? 0 : nextSlide;
-      });
-    }, isMobile ? 3000 : 4000); // Faster on mobile
+      nextSlide();
+    }, isMobile ? 3000 : 4000);
 
     return () => clearInterval(interval);
-  }, [isAutoScrolling, maxSlide, isMobile]);
+  }, [isAutoPlaying, currentIndex]);
 
   const nextSlide = () => {
-    setIsAutoScrolling(false);
-    setCurrentSlide((prev) => {
-      const nextSlide = prev + 1;
-      return nextSlide > maxSlide ? 0 : nextSlide;
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentIndex(prev => {
+      const nextIndex = prev + 1;
+      // Reset to 0 when we reach the end of original services
+      if (nextIndex >= services.length) {
+        setTimeout(() => {
+          setCurrentIndex(0);
+          setIsTransitioning(false);
+        }, 600); // Match transition duration
+        return nextIndex;
+      }
+      setIsTransitioning(false);
+      return nextIndex;
     });
-    setTimeout(() => setIsAutoScrolling(true), 8000);
   };
 
   const prevSlide = () => {
-    setIsAutoScrolling(false);
-    setCurrentSlide((prev) => prev === 0 ? maxSlide : prev - 1);
-    setTimeout(() => setIsAutoScrolling(true), 8000);
+    if (isTransitioning) return;
+    
+    setIsAutoPlaying(false);
+    setIsTransitioning(true);
+    
+    setCurrentIndex(prev => {
+      const prevIndex = prev - 1;
+      if (prevIndex < 0) {
+        // Jump to the end position
+        setTimeout(() => {
+          setCurrentIndex(services.length - 1);
+          setIsTransitioning(false);
+        }, 600);
+        return services.length;
+      }
+      setIsTransitioning(false);
+      return prevIndex;
+    });
+    
+    setTimeout(() => setIsAutoPlaying(true), 8000);
   };
 
   const goToSlide = (index) => {
-    setIsAutoScrolling(false);
-    setCurrentSlide(index);
-    setTimeout(() => setIsAutoScrolling(true), 8000);
+    if (index === currentIndex || isTransitioning) return;
+    setIsAutoPlaying(false);
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+    setIsTransitioning(false);
+    setTimeout(() => setIsAutoPlaying(true), 8000);
   };
 
   // Touch handlers
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
-    setIsAutoScrolling(false);
+    setIsAutoPlaying(false);
   };
 
   const handleTouchMove = (e) => {
@@ -197,26 +224,35 @@ const Services = () => {
     } else if (distance < -threshold) {
       prevSlide();
     } else {
-      setTimeout(() => setIsAutoScrolling(true), 2000);
+      setTimeout(() => setIsAutoPlaying(true), 3000);
     }
 
     touchStartX.current = 0;
     touchEndX.current = 0;
   };
 
-  // Calculate visible services
-  const visibleServices = services.slice(currentSlide, currentSlide + itemsPerSlide);
+  // Calculate transform for smooth single-card movement
+  const getTransform = () => {
+    if (isMobile) {
+      return `translateX(-${currentIndex * (100 / 1)}%)`;
+    } else {
+      // For desktop: move by the width of one card
+      const cardWidthPercent = 100 / extendedServices.length;
+      return `translateX(-${currentIndex * cardWidthPercent}%)`;
+    }
+  };
 
   return (
-    <section id="services" className="py-12 md:py-24 bg-gray-50 relative overflow-hidden">
+    <section id="services" className="py-12 md:py-16 bg-gradient-to-br from-primary-50 via-white to-primary-100 relative overflow-hidden">
       {/* Background elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-gray-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-gray-600/10 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-primary-400/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-primary/3 to-primary-400/3 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-8 md:mb-10">
+        <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-4">
             Our<span className="font-semibold text-primary"> Services</span>
           </h2>
@@ -229,33 +265,39 @@ const Services = () => {
         {/* Services Carousel */}
         <div className="relative">
           <div 
-            className="overflow-hidden cursor-grab active:cursor-grabbing"
+            className="overflow-hidden"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            ref={scrollContainerRef}
           >
             <div 
-              className={`grid ${
-                isMobile 
-                  ? 'grid-cols-1 gap-6' 
-                  : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8'
-              } transition-all duration-500 ease-out`}
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{
+                width: `${extendedServices.length * (100 / visibleCount)}%`,
+                transform: getTransform()
+              }}
             >
-              {visibleServices.map((service, index) => (
-                <div key={currentSlide + index} className="group">
-                  <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full transform hover:-translate-y-1">
-                    <div className="relative h-48 md:h-56">
+              {extendedServices.map((service, index) => (
+                <div 
+                  key={`${service.title}-${index}`}
+                  className="group flex-shrink-0 px-3"
+                  style={{
+                    width: `${100 / extendedServices.length}%`
+                  }}
+                >
+                  <div className="bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full transform hover:-translate-y-2 border border-white/50">
+                    <div className="relative h-48 md:h-56 overflow-hidden">
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="p-4 md:p-6">
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors duration-300">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors duration-300">
                         {service.title}
                       </h3>
                       <p className="text-gray-600 text-sm leading-relaxed">
@@ -273,38 +315,53 @@ const Services = () => {
             <>
               <button 
                 onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-200 z-10"
+                disabled={isTransitioning}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-6 bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 group border border-white/50 z-10 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+                <ChevronLeft className="w-6 h-6 text-gray-700 group-hover:text-primary transition-colors" />
               </button>
               <button 
                 onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-200 z-10"
+                disabled={isTransitioning}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 group border border-white/50 z-10 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronRight className="w-6 h-6 text-gray-700 group-hover:text-gray-900 transition-colors" />
+                <ChevronRight className="w-6 h-6 text-gray-700 group-hover:text-primary transition-colors" />
               </button>
             </>
           )}
 
           {/* Slide Indicators */}
           <div className="flex justify-center mt-6 md:mt-12 gap-2 md:gap-3">
-            {Array.from({ length: maxSlide + 1 }).map((_, index) => (
+            {services.slice(0, Math.ceil(services.length / visibleCount)).map((_, index) => (
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-2 md:w-3 h-2 md:h-3 rounded-full transition-all duration-300 ${
-                  currentSlide === index 
-                    ? 'bg-gray-800 w-6 md:w-8' 
-                    : 'bg-gray-300 hover:bg-gray-400'
+                disabled={isTransitioning}
+                className={`h-2 md:h-3 rounded-full transition-all duration-500 ease-out ${
+                  Math.floor(currentIndex / visibleCount) === index || 
+                  (currentIndex % services.length === index && currentIndex < services.length)
+                    ? 'bg-primary w-6 md:w-8 shadow-md' 
+                    : 'bg-primary/30 w-2 md:w-3 hover:bg-primary/50'
                 }`}
               />
             ))}
           </div>
 
+          {/* Status indicator */}
+          <div className="text-center mt-4">
+            <span className="text-sm text-gray-500">
+              {isMobile ? (
+                <>Service {(currentIndex % services.length) + 1} of {services.length}</>
+              ) : (
+                <>Showing {Math.min(visibleCount, services.length - currentIndex)} of {services.length} services</>
+              )}
+            </span>
+          </div>
+
           {/* Mobile swipe hint */}
           {isMobile && (
-            <div className="text-center mt-4 text-sm text-gray-500">
-              Swipe left or right to see more services
+            <div className="text-center mt-2 text-sm text-gray-400">
+              Swipe left or right to navigate
             </div>
           )}
         </div>

@@ -39,15 +39,15 @@ const Testimonials = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
   };
 
-  const goToSlide = (index: number) => {
+  const goToSlide = (index) => {
     setCurrentIndex(index);
   };
 
   return (
-    <section id="testimonials" className="py-16 md:py-24 bg-primary-50">
-      <div className="section-container">
-        <h2 className="section-title">Patient Testimonials</h2>
-        <p className="section-subtitle">
+    <section id="testimonials" className="py-16 md:py-24 bg-gradient-to-br from-primary-50 via-white to-primary-100">
+      <div className="section-container max-w-6xl mx-auto px-4">
+        <h2 className="section-title text-3xl md:text-4xl font-bold text-center text-gray-800 mb-4">Patient Testimonials</h2>
+        <p className="section-subtitle text-lg text-gray-600 text-center mb-8">
           Hear what our patients have to say about their experience at J R Dental Clinic
         </p>
         
@@ -62,7 +62,7 @@ const Testimonials = () => {
                 <div key={index} className="w-full flex-shrink-0 px-4">
                   <div className="bg-white rounded-lg shadow-lg p-8">
                     <div className="flex justify-center mb-6">
-                      <Quote size={48} className="text-primary-200" />
+                      <Quote size={48} className="text-teal-200" />
                     </div>
                     <p className="text-gray-700 text-lg italic mb-6 text-center">
                       "{testimonial.quote}"
@@ -76,7 +76,7 @@ const Testimonials = () => {
                       <h4 className="font-semibold text-lg">{testimonial.name}</h4>
                       <div className="flex mt-2">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} size={16} className="text-secondary-500 fill-secondary-500" />
+                          <Star key={i} size={16} className="text-yellow-500 fill-yellow-500" />
                         ))}
                       </div>
                     </div>
@@ -91,13 +91,13 @@ const Testimonials = () => {
             className="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100"
             onClick={prevSlide}
           >
-            <ChevronLeft size={24} className="text-primary-500" />
+            <ChevronLeft size={24} className="text-teal-500" />
           </button>
           <button 
             className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100"
             onClick={nextSlide}
           >
-            <ChevronRight size={24} className="text-primary-500" />
+            <ChevronRight size={24} className="text-teal-500" />
           </button>
           
           {/* Dots Indicator */}
@@ -107,7 +107,7 @@ const Testimonials = () => {
                 key={index}
                 onClick={() => goToSlide(index)}
                 className={`w-3 h-3 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-primary-500' : 'bg-gray-300'
+                  index === currentIndex ? 'bg-teal-500' : 'bg-gray-300'
                 }`}
               />
             ))}

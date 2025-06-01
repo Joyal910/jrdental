@@ -121,7 +121,7 @@ const Reviews = () => {
   );
 
   return (
-    <section className="py-12 md:py-16 lg:py-24 bg-gray-50 relative overflow-hidden">
+    <section id="reviews" className="py-12 md:py-16 lg:py-24 bg-gradient-to-br from-primary-50 via-white to-primary-100 relative overflow-hidden">
       {/* Enhanced background decorative elements - reduced on mobile */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-20 md:-top-40 -right-20 md:-right-40 w-40 md:w-80 h-40 md:h-80 bg-blue-200/20 rounded-full blur-2xl md:blur-3xl animate-pulse"></div>

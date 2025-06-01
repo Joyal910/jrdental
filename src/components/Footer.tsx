@@ -16,9 +16,12 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
+              <li><a href="#about" className="text-gray-400 hover:text-white">About us</a></li>
               <li><a href="#services" className="text-gray-400 hover:text-white">Services</a></li>
+                <li><a href="#reviews" className="text-gray-400 hover:text-white">Reviews</a></li>
               <li><a href="#team" className="text-gray-400 hover:text-white">Our Team</a></li>
               <li><a href="#contact" className="text-gray-400 hover:text-white">Contact</a></li>
+               
             </ul>
           </div>
           
@@ -49,7 +52,7 @@ const Footer = () => {
         
         <div className="pt-8 border-t border-gray-800 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} J R Multi Speciality Dental Clinic. All rights reserved.
+            © {new Date().getFullYear()} J R Multi Speciality Dental Clinic. All rights reserved | Developed By Joyal P Thomas
           </p>
         </div>
       </div>

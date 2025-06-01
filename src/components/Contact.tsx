@@ -25,11 +25,11 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-16 bg-gray-50">
+    <section id="contact" className="py-16 bg-gradient-to-br from-teal-50 via-white to-teal-100">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-3">
-            Get in <span className="text-primary">Touch</span>
+            Get in <span className="text-teal-500">Touch</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Schedule your visit or reach out with any questions. We're here to help you achieve your perfect smile.
@@ -41,10 +41,10 @@ const Contact = () => {
           <div className="space-y-6">
             {/* Contact Information Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-white rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-primary">
+              <div className="bg-white rounded-lg p-5 shadow-sm hover:shadow-md transition-shadow duration-300 border-l-4 border-teal-500">
                 <div className="flex items-start">
-                  <div className="bg-primary/10 p-2 rounded-lg mr-3">
-                    <MapPin className="w-5 h-5 text-primary" />
+                  <div className="bg-teal-50 p-2 rounded-lg mr-3">
+                    <MapPin className="w-5 h-5 text-teal-500" />
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Location</h3>
@@ -63,9 +63,19 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Phone</h3>
-                    <a href="tel:+914822700045" className="text-gray-600 hover:text-primary text-sm">
-                      +91 482 2700045
-                    </a>
+                    <div className="space-y-1">
+                      <a href="tel:+917356562983" className="text-gray-600 hover:text-teal-500 text-sm block">
+                        +91 73565 62983
+                      </a>
+                      <a href="tel:+919847450050" className="text-gray-600 hover:text-teal-500 text-sm block">
+                        +91 98474 50050
+                      </a>
+                      <h3 className="font-bold text-gray-900 mb-1">WhatsApp</h3>
+                        <a href="https://wa.me/919847450050"className="text-gray-600 hover:text-teal-500 text-sm block">
+                          +91 98474 50050
+                        </a>
+                      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -77,7 +87,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Email</h3>
-                    <a href="mailto:info@jrdentalclinic.com" className="text-gray-600 hover:text-primary text-sm">
+                    <a href="mailto:info@jrdentalclinic.com" className="text-gray-600 hover:text-teal-500 text-sm">
                       info@jrdentalclinic.com
                     </a>
                   </div>
@@ -119,10 +129,10 @@ const Contact = () => {
           </div>
 
           {/* Right Column - Appointment Form */}
-          <div className="bg-white rounded-lg shadow-sm p-6">
+          <div id="appointments" className="bg-white rounded-lg shadow-sm p-6">
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Book <span className="text-primary">Appointment</span>
+                Book <span className="text-teal-500">Appointment</span>
               </h3>
               <p className="text-gray-600 text-sm">Fill the form and we'll contact you shortly</p>
             </div>
@@ -147,7 +157,7 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                       placeholder="John Doe"
                     />
                   </div>
@@ -161,7 +171,7 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -177,7 +187,7 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                       placeholder="+91 98765 43210"
                     />
                   </div>
@@ -190,7 +200,7 @@ const Contact = () => {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary text-sm"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                     >
                       <option value="">Select service</option>
                       <option value="General Checkup">General Checkup</option>
@@ -212,7 +222,7 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none text-sm"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none text-sm"
                     rows={4}
                     placeholder="Any specific concerns..."
                   ></textarea>
@@ -220,7 +230,7 @@ const Contact = () => {
 
                 <button 
                   onClick={handleSubmit} 
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group"
+                  className="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                   Book Appointment

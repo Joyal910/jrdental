@@ -24,16 +24,18 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 bg-white shadow-md ${
-      isScrolled ? 'py-4 top-0' : 'py-6 top-8'
+      isScrolled 
+        ? 'py-4 top-0' 
+        : 'py-6 top-0 md:top-8'
     }`}>
-      <div className="section-container">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center">
+          <a href="#hero" className="flex items-center">
             <img 
               src={jrlogo} 
               alt="JR Dental Clinic" 
               className={`transition-all duration-300 ${
-                isScrolled ? 'h-8' : 'h-10'
+                isScrolled ? 'h-10' : 'h-14'
               }`}
             />
           </a>
@@ -43,12 +45,17 @@ const Navbar = () => {
               <a 
                 key={link.href}
                 href={link.href} 
-                className="nav-link"
+                className="text-gray-700 hover:text-[#ea7d1a] font-medium transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
-            <a href="#appointment" className="btn-primary">Book Appointment</a>
+            <a 
+              href="#appointments" 
+              className="btn-primary transition-colors duration-200 font-medium"
+            >
+              Book Appointment
+            </a>
           </div>
           
           <button 
@@ -67,15 +74,15 @@ const Navbar = () => {
                 <a 
                   key={link.href}
                   href={link.href} 
-                  className="nav-link" 
+                  className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200" 
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
               <a 
-                href="#appointment" 
-                className="btn-primary text-center" 
+                href="#appointments" 
+                className="btn-primary transition-colors duration-200 font-medium" 
                 onClick={() => setIsOpen(false)}
               >
                 Book Appointment

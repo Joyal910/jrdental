@@ -59,14 +59,15 @@ const Hero = () => {
   const counter1 = useAnimatedCounter(15, 2000, '+');
   const counter2 = useAnimatedCounter(12000, 2500, '+');
   const counter3 = useAnimatedCounter(99.2, 2200, '%');
+  const counter4 = useAnimatedCounter(24, 1800, '/7');
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-48 md:pb-28 overflow-hidden">
+    <section id="hero" className="relative pt-32 pb-20 md:pt-48 md:pb-28 overflow-hidden">
       {/* Background Image without Overlay */}
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('https://img.freepik.com/free-photo/little-beautiful-girl-dentist-smiling_158595-7736.jpg?ga=GA1.2.836884953.1735622152&semt=ais_hybrid&w=740')",
+          backgroundImage: `url(${girl_smiling})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
@@ -109,7 +110,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-green-500" />
-                <span className="text-sm font-semibold text-gray-700">ISO Certified</span>
+                <span className="text-sm font-semibold text-gray-700">ISO & CDSCO Certified Equipments</span>
               </div>
             </div>
             
@@ -125,30 +126,37 @@ const Hero = () => {
               </a>
             </div>
             
-            {/* Statistics Section */}
-           <div className="grid grid-cols-3 gap-8 pt-8 border-t border-white/40">
-  <div className="text-center lg:text-left" ref={counter1.ref}>
-    <h3 className="text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
-      {counter1.count}
-    </h3>
-    <p className="text-gray-800 font-medium">Years of Excellence</p>
-    <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
-  </div>
-  <div className="text-center lg:text-left" ref={counter2.ref}>
-    <h3 className="text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
-      {counter2.count.toString().includes('000') ? `${Math.floor(counter2.count.toString().replace('+', '') / 1000)}k+` : counter2.count}
-    </h3>
-    <p className="text-gray-800 font-medium">Transformed Smiles</p>
-    <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
-  </div>
-  <div className="text-center lg:text-left" ref={counter3.ref}>
-    <h3 className="text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
-      {counter3.count}
-    </h3>
-    <p className="text-gray-800 font-medium">Success Rate</p>
-    <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
-  </div>
-</div>
+            {/* Statistics Section - Updated to 4 columns */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8 border-t border-white/40">
+              <div className="text-center lg:text-left" ref={counter1.ref}>
+                <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
+                  {counter1.count}
+                </h3>
+                <p className="text-gray-800 font-medium text-sm lg:text-base">Years of Excellence</p>
+                <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
+              </div>
+              <div className="text-center lg:text-left" ref={counter2.ref}>
+                <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
+                  {counter2.count.toString().includes('000') ? `${Math.floor(counter2.count.toString().replace('+', '') / 1000)}k+` : counter2.count}
+                </h3>
+                <p className="text-gray-800 font-medium text-sm lg:text-base">Transformed Smiles</p>
+                <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
+              </div>
+              <div className="text-center lg:text-left" ref={counter3.ref}>
+                <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
+                  {counter3.count}
+                </h3>
+                <p className="text-gray-800 font-medium text-sm lg:text-base">Success Rate</p>
+                <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
+              </div>
+              <div className="text-center lg:text-left" ref={counter4.ref}>
+                <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
+                  {counter4.count}
+                </h3>
+                <p className="text-gray-800 font-medium text-sm lg:text-base">Support Available</p>
+                <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
