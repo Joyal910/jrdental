@@ -49,8 +49,8 @@ const Contact = () => {
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Location</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                      Mukkada Edifice, Karukachal Rd,<br />
-                      Changanacherry, Kerala 686536
+                     GROUND FLOOR, MUKKADA EDIFICE, Karukachal - Changanacherry Rd,<br />
+                      Thengena, Kerala 686536
                     </p>
                   </div>
                 </div>
@@ -64,12 +64,13 @@ const Contact = () => {
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Phone</h3>
                     <div className="space-y-1">
-                      <a href="tel:+917356562983" className="text-gray-600 hover:text-teal-500 text-sm block">
-                        +91 73565 62983
-                      </a>
                       <a href="tel:+919847450050" className="text-gray-600 hover:text-teal-500 text-sm block">
                         +91 98474 50050
                       </a>
+                      <a href="tel:+917356562983" className="text-gray-600 hover:text-teal-500 text-sm block">
+                        +91 73565 62983
+                      </a>
+                      
                       <h3 className="font-bold text-gray-900 mb-1">WhatsApp</h3>
                         <a href="https://wa.me/919847450050"className="text-gray-600 hover:text-teal-500 text-sm block">
                           +91 98474 50050
@@ -102,9 +103,8 @@ const Contact = () => {
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Hours</h3>
                     <div className="text-sm text-gray-600">
-                      <p>Mon-Fri: 9AM-7PM</p>
-                      <p>Sat: 9AM-5PM</p>
-                      <p>Sun: Closed</p>
+                      <p>Mon-Sat: 9AM-8PM</p>
+                      <p>Sun: Open Based on Appoinments</p>
                     </div>
                   </div>
                 </div>

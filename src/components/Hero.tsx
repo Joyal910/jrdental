@@ -56,7 +56,7 @@ const useAnimatedCounter = (endValue, duration = 2000, suffix = '') => {
 };
 
 const Hero = () => {
-  const counter1 = useAnimatedCounter(15, 2000, '+');
+  const counter1 = useAnimatedCounter(100, 2000, '%');
   const counter2 = useAnimatedCounter(12000, 2500, '+');
   const counter3 = useAnimatedCounter(99.2, 2200, '%');
   const counter4 = useAnimatedCounter(24, 1800, '/7');
@@ -95,7 +95,7 @@ const Hero = () => {
             </div>
             
             <p className="text-xl text-gray-900 max-w-lg leading-relaxed font-medium">
-              Experience personalized treatment from India's most trusted dental specialists in our state-of-the-art facility.
+              Get top-notch dental care at J R Multispeciality Dental Clinic & Implant Center in Changanassery — where expert dentists and modern tech come together for your smile.
             </p>
 
             {/* Trust indicators */}
@@ -106,7 +106,7 @@ const Hero = () => {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <span className="text-sm font-semibold text-gray-700">4.9/5</span>
+                <span className="text-sm font-semibold text-gray-700">5/5</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4 text-green-500" />
@@ -132,7 +132,7 @@ const Hero = () => {
                 <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
                   {counter1.count}
                 </h3>
-                <p className="text-gray-800 font-medium text-sm lg:text-base">Years of Excellence</p>
+                <p className="text-gray-800 font-medium text-sm lg:text-base">Patient Satisfaction</p>
                 <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
               </div>
               <div className="text-center lg:text-left" ref={counter2.ref}>
@@ -142,13 +142,7 @@ const Hero = () => {
                 <p className="text-gray-800 font-medium text-sm lg:text-base">Transformed Smiles</p>
                 <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
               </div>
-              <div className="text-center lg:text-left" ref={counter3.ref}>
-                <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
-                  {counter3.count}
-                </h3>
-                <p className="text-gray-800 font-medium text-sm lg:text-base">Success Rate</p>
-                <div className="w-full h-1 bg-gradient-to-r from-[#f3831e]/30 to-transparent rounded-full mt-2"></div>
-              </div>
+              
               <div className="text-center lg:text-left" ref={counter4.ref}>
                 <h3 className="text-3xl lg:text-4xl font-bold bg-gradient-to-br from-[#f3831e] to-[#d16a0f] bg-clip-text text-transparent">
                   {counter4.count}

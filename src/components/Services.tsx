@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+
 const Services = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -21,119 +22,119 @@ const Services = () => {
 
   const services = [
     {
-      title: "Orthodontics with Braces",
-      description: "Correction of protruded and malaligned teeth using either metal braces or ceramic braces.",
-      image: "https://images.pexels.com/photos/3779706/pexels-photo-3779706.jpeg"
-    },
-    {
-      title: "Orthodontics with Aligners",
-      description: "Correction of mild to moderate malaligned teeth using nearly invisible and comfortable aligners.",
-      image: "https://images.pexels.com/photos/3845743/pexels-photo-3845743.jpeg"
-    },
-    {
-      title: "Single Sitting Root Canal",
-      description: "Saves infected and fractured teeth while relieving pain through efficient single-visit root canal procedures.",
-      image: "https://images.pexels.com/photos/3845754/pexels-photo-3845754.jpeg"
-    },
-    {
-      title: "Dental Implants",
-      description: "Replacement of missing teeth using advanced techniques such as dentures, bridges, or implants.",
-      image: "https://images.pexels.com/photos/3845757/pexels-photo-3845757.jpeg"
-    },
-    {
-      title: "Dental Surgery",
-      description: "Includes oral surgical procedures like tooth removal and treatment of impactions.",
-      image: "https://images.pexels.com/photos/3845761/pexels-photo-3845761.jpeg"
-    },
-    {
-      title: "Pedodontics",
-      description: "Specialized dental care for children in a cheerful and friendly environment.",
-      image: "https://images.pexels.com/photos/3845719/pexels-photo-3845719.jpeg"
-    },
-    {
-      title: "Veneers & Esthetic Fillings",
-      description: "Cosmetic dental treatments for improving aesthetics and reshaping teeth.",
-      image: "https://images.pexels.com/photos/3845731/pexels-photo-3845731.jpeg"
-    },
-    {
-      title: "Periodontic Treatment",
-      description: "Focused on maintaining oral hygiene and treating gum diseases.",
-      image: "https://images.pexels.com/photos/3845741/pexels-photo-3845741.jpeg"
-    },
-    {
       title: "Scaling",
-      description: "Removes plaque and tartar to prevent gum disease and maintain oral hygiene.",
-      image: "https://images.pexels.com/photos/3845747/pexels-photo-3845747.jpeg"
+      description: "Professional cleaning to remove plaque and tartar buildup from teeth and gumline.",
+      image: "https://www.diagnopein.com/img/BlogImages/Scaling%20of%20Teeth.jpg"
     },
     {
       title: "Restoration",
-      description: "Repairs decayed or damaged teeth using fillings, inlays, or crowns.",
-      image: "https://images.pexels.com/photos/3845751/pexels-photo-3845751.jpeg"
+      description: "Repair of damaged teeth using fillings, inlays, or onlays to restore function and appearance.",
+      image: "https://www.symmetrydentist.com/wp-content/uploads/2023/10/why-porcelain-inlays-and-onlays-are-the-perfect-solution-for-restoring-damaged-teeth.jpg"
+    },
+    {
+      title: "Orthodontic Treatment",
+      description: "Correction of misaligned teeth and bite issues using braces or other alignment devices.",
+      image: "https://www.thedentalroots.com/TheDentalRootslmages/BlogImage/4-dental-health-problems-that-can-be-fixed-by-orthodontic-treatment-L.jpg"
+    },
+    {
+      title: "Root Canal Treatments",
+      description: "Removal of infected or damaged tooth pulp to save the natural tooth.",
+      image: "https://www.arcadedentaltx.com/wp-content/uploads/2023/09/roort-canal-infection-pharr-1.jpg"
+    },
+    {
+      title: "Crown & Bridges",
+      description: "Protective caps for damaged teeth and replacement structures for missing teeth.",
+      image: "https://harshahospital.com/wp-content/uploads/2022/06/tooth-bridge.jpg"
     },
     {
       title: "Removable Partial Denture",
-      description: "Replaces multiple missing teeth with a removable appliance.",
-      image: "https://images.pexels.com/photos/3845765/pexels-photo-3845765.jpeg"
+      description: "Custom-made artificial teeth that can be taken out to replace some missing teeth.",
+      image: "https://www.myperfectsmiledds.com/wp-content/uploads/2019/03/Flexible-Nylon-Denture-On-Fema-236582023.jpg"
     },
     {
       title: "Complete Denture",
-      description: "Full set of removable artificial teeth for edentulous patients.",
-      image: "https://images.pexels.com/photos/3779706/pexels-photo-3779706.jpeg"
+      description: "Full set of removable artificial teeth to replace all missing teeth in upper or lower jaw.",
+      image: "https://clovedental.in/wp-content/uploads/2023/12/image5.png"
     },
     {
       title: "Extractions",
-      description: "Removes damaged, decayed, or problematic teeth safely.",
-      image: "https://images.pexels.com/photos/3845757/pexels-photo-3845757.jpeg"
+      description: "Safe removal of damaged, infected, or problematic teeth.",
+      image: "https://www.bridgepointedentistry.com/wp-content/uploads/2024/05/Is-Extraction-the-Solution-for-a-Tooth-Infection.png"
+    },
+    {
+      title: "Teeth Whitening",
+      description: "Professional bleaching treatment to brighten and remove stains from teeth.",
+      image: "https://www.drbhutanidentalclinic.com/wp-content/uploads/2021/12/TEETH-WHITENING-AND-BLEACHING-1.jpg"
+    },
+    {
+      title: "Dental Implants",
+      description: "Permanent artificial tooth roots surgically placed to replace missing teeth.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWpgVit7rllols3J8Tm4_-8PYt-G7d8SS17Q&s"
     },
     {
       title: "Laser Dentistry",
-      description: "Minimally invasive dental procedures using laser technology.",
-      image: "https://images.pexels.com/photos/3845759/pexels-photo-3845759.jpeg"
+      description: "Advanced treatment using laser technology for precise, minimally invasive procedures.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRnz-B0aRAmzb7aekM0a0h28NJWLnLmpL0CQ&s"
     },
     {
-      title: "Mouth Guards",
-      description: "Custom-made guards to protect teeth during sports or against grinding.",
-      image: "https://images.pexels.com/photos/3845761/pexels-photo-3845761.jpeg"
+      title: "Youth Guards",
+      description: "Custom protective mouthpieces for children participating in sports activities.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV5d2wkH8eDDnP1OaMxbBjptiHlfbV72HwPTlFTAl16pecmUa_aDprLr3n42tWotD7Ptc&usqp=CAU"
     },
     {
-      title: "Teeth Reshaping",
-      description: "Smooths out imperfections or irregularities in teeth structure.",
-      image: "https://images.pexels.com/photos/3845763/pexels-photo-3845763.jpeg"
+      title: "Teeth Re-shaping",
+      description: "Cosmetic contouring to improve the shape and appearance of teeth.",
+      image: "https://lirp.cdn-website.com/17fecfbf/dms3rep/multi/opt/unnamed+%283%29-640w.jpg"
     },
     {
       title: "Veneers & Crowns",
-      description: "Enhances appearance and protects damaged teeth with porcelain covers.",
-      image: "https://images.pexels.com/photos/3845765/pexels-photo-3845765.jpeg"
+      description: "Thin shells or caps placed over teeth to improve appearance and strength.",
+      image: "https://www.murrayschollsfamilydental.com/wp-content/uploads/2024/09/dental-crowns-front-teeth.jpg"
     },
     {
-      title: "Full Mouth Rehabilitation",
-      description: "Restores full oral function and aesthetics with implant-based solutions.",
-      image: "https://images.pexels.com/photos/3845767/pexels-photo-3845767.jpeg"
+      title: "Full Mouth Re-habilitation with Implants",
+      description: "Comprehensive restoration of all teeth using implant-supported prosthetics.",
+      image: "https://www.stunningdentistry.com/images/resource/all-on-6-prosthesis.jpg"
     },
     {
       title: "Flap Surgeries",
-      description: "Advanced gum treatment for deep cleaning and periodontal health.",
-      image: "https://images.pexels.com/photos/3845769/pexels-photo-3845769.jpeg"
+      description: "Periodontal procedure to treat advanced gum disease by accessing tooth roots.",
+      image: "https://www.coastalperio.net/resourcefiles/dear-doctor/periodontal-gum-disease.jpg"
     },
     {
       title: "Clear Aligner Therapy",
-      description: "Nearly invisible aligners to straighten teeth without braces.",
-      image: "https://images.pexels.com/photos/3845771/pexels-photo-3845771.jpeg"
+      description: "Invisible orthodontic treatment using transparent, removable aligners.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTGfSd0xHg-VAveX2APUhpbs02nMPOAZud1A&s"
     },
     {
       title: "Post & Core Buildups",
-      description: "Provides support for a crown on a severely damaged tooth.",
-      image: "https://images.pexels.com/photos/3845773/pexels-photo-3845773.jpeg"
+      description: "Foundation treatment to rebuild severely damaged teeth before crown placement.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRVg9bjidkusSZhCKSWHiilFPm2JRQMRj6OA&s"
     },
     {
       title: "Cervical Abrasion Filling",
-      description: "Restores worn-out areas near the gum line.",
-      image: "https://images.pexels.com/photos/3845775/pexels-photo-3845775.jpeg"
+      description: "Treatment for worn areas at the tooth's neck near the gumline.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEPA5T1-RUVe-IrT9MauoKx-MVUB6x7MGzUw&s"
     },
     {
       title: "Re-root Canal Treatment",
-      description: "Re-treats a tooth where a previous root canal has failed.",
-      image: "https://images.pexels.com/photos/3845777/pexels-photo-3845777.jpeg"
+      description: "Secondary root canal procedure when initial treatment needs revision.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH7denqPC3KqhEAMbT_IxdEX0T4Fm6C6SkFA&s"
+    },
+    {
+      title: "Digital Dentistry",
+      description: "Modern computer-assisted diagnosis and treatment planning for precision care.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG4BbPlJ1qvindpOx2eCR_hAZF6SBq7TgelKbguMR1sTfGVFowqHWP1MIhCAv1f7kAnV4&usqp=CAU"
+    },
+    {
+      title: "Habit Breakers",
+      description: "Appliances designed to help patients stop harmful oral habits like thumb sucking.",
+      image: "https://littlepearlsdentalcare.com/wp-content/uploads/2022/01/Thumb-or-finger-sucking.png.webp"
+    },
+    {
+      title: "Cosmetic Procedures",
+      description: "Aesthetic treatments to enhance the appearance of teeth and smile.",
+      image: "https://www.yourdentistryguide.com/wp-content/uploads/2017/11/new-smile-min-925x425.jpg"
     }
   ];
 

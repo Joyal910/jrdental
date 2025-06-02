@@ -20,8 +20,8 @@ const UtilityStrip = () => {
               <div className="flex items-center space-x-2">
                 <Clock className="h-4 w-4 flex-shrink-0" />
                 <div className="text-sm">
-                  <span className="mr-4">Mon to Fri - 09:00 am to 8:00 pm</span>
-                  <span>Sat - 10:00 am to 4:00 pm</span>
+                  <span className="mr-4">Mon to Sat - 09:00 am to 8:00 pm</span>
+                  <span>Sun - Open on appointment</span>
                 </div>
               </div>
               

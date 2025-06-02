@@ -9,46 +9,53 @@ const Reviews = () => {
   
   const reviews = [
     {
-      name: "Sarah Johnson",
-      review: "Amazing dental care! The staff is incredibly professional and caring. They made me feel comfortable throughout the entire procedure.",
+      name: "Joibtha Babu",
+      review: "I had a great experience at this dental clinic for my tooth clipping procedure. The doctors took the time to explain every step in detail, which really helped ease any anxiety I had. I was given a suitable appointment time, and the follow-up care was thorough and timely. They also provided clear instructions on post-treatment care, which I found very helpful. The doctors and staff were extremely cooperative, professional, and made me feel comfortable throughout. I highly recommend this clinic for anyone looking for quality dental care!..... Thank you.",
       rating: 5,
-      timeAgo: "2 weeks ago",
+      timeAgo: "May 2025",
+      avatar: "JB"
+    },
+    {
+      name: "Shyam Mohanan",
+      review: "Had a great experience at the clinic today! Went in for a cleanup — the place was clean and well-organized. Dr. Jinas was very friendly and took the time to explain everything about my teeth and the future procedures I might need. I really appreciated the clear communication and gentle approach. Highly recommend this clinic for anyone looking for quality dental care!",
+      rating: 5,
+      timeAgo: "April 2025",
+      avatar: "SM"
+    },
+    {
+      name: "Bill Lust",
+      review: "We traveled from America to visit my wife’s family, and I needed a routine cleaning. During the visit, the dentist discovered some small cavities that I wasn’t even aware of. What really stood out was his ability to take clear digital photos of my teeth, allowing me to see exactly what was going on. He even showed me detailed before-and-after pictures, which highlighted the quality of his work—a really nice touch that gave me extra confidence in the care I was receiving.The entire process was smooth and painless, and he fixed the cavities so well that it’s like they were never there. My teeth feel so much nicer after everything! The care and modern equipment at this clinic are just as good, if not better, than what I’ve experienced in the United States. I’m really impressed with the professionalism and attention to detail, and I’ll definitely be coming here for any future dental needs while visiting. Highly recommended!",
+      rating: 5,
+      timeAgo: "3 weeks ago",
+      avatar: "BL"
+    },
+    {
+      name: "Manu K M",
+      review: "Have been to JR Dental Clinic several times—everything from simple clean-ups to a tricky root canal—and every visit has been excellent. Dr. Jinas and Dr. Rukya combine skill with genuine care, explaining options clearly and never rushing. The clinic is spotless, up-to-date, and welcoming for the whole family, so we can get all our dental work done in one place. Quality treatment, fair pricing, zero stress—highly recommend!",
+      rating: 5,
+      timeAgo: "May 2025",
+      avatar: "MK"
+    },
+    {
+      name: "Nisha Thomas Susan",
+      review: "I had a very positive experience with Dr. Jinas. I came to clinic because of filling wholes of my tooth. Successfully did diastema treatment...Dr. Jinas was thorough in his examination & provided excellent care. I truly appreciate the professionalism & kindness shown by the doctor... & great experience in JR multi speciality dental clinic... Highly recommended 😊",
+      rating: 5,
+      timeAgo: "June 2025",
+      avatar: "NT"
+    },
+    {
+      name: "Siji Joice",
+      review: "I visited the clinic for root canal treatment for a most decayed tooth.Dr Jinas and his team made me comfortable throughout the procedure and the tooth is saved and a good crown given.The clinic is having advanced equipments for treatment. I strongly recommend this clinic for everyone who is looking for a best dental care 👍🏻👍🏻",
+      rating: 5,
+      timeAgo: "February 2025",
       avatar: "SJ"
     },
     {
-      name: "Michael Chen",
-      review: "Best dental experience I've ever had. Modern facility and gentle treatment. The technology they use is impressive.",
+      name: "Jimsy Thaiseer",
+      review: "I visited the clinic for tooth extraction of my 8 year old child. She won't cooperative to any dentist.But dr Jinas and dr rukya is well experienced in managing children done tooth extraction simply without any pain.We are very happy with the treatment .JR multi speciality dental clinic is the ideal place for tooth extraction. Best dental clinic in and around Thengana .",
       rating: 5,
-      timeAgo: "1 month ago",
-      avatar: "MC"
-    },
-    {
-      name: "Emily Davis",
-      review: "Dr. Jinas and the team are exceptional. Highly recommended! They go above and beyond for their patients.",
-      rating: 5,
-      timeAgo: "3 weeks ago",
-      avatar: "ED"
-    },
-    {
-      name: "David Wilson",
-      review: "Outstanding service and results. The team is knowledgeable and makes every visit pleasant and stress-free.",
-      rating: 5,
-      timeAgo: "2 months ago",
-      avatar: "DW"
-    },
-    {
-      name: "Lisa Thompson",
-      review: "Professional, caring, and skilled. They transformed my smile and boosted my confidence significantly.",
-      rating: 5,
-      timeAgo: "1 month ago",
-      avatar: "LT"
-    },
-    {
-      name: "James Rodriguez",
-      review: "Exceptional dental care with a personal touch. The staff remembers your name and makes you feel like family.",
-      rating: 5,
-      timeAgo: "3 weeks ago",
-      avatar: "JR"
+      timeAgo: "February 2025",
+      avatar: "JT"
     }
   ];
 
@@ -145,8 +152,8 @@ const Reviews = () => {
                 <Star key={i} className="h-4 w-4 md:h-5 md:w-5 text-yellow-400 fill-yellow-400" />
               ))}
             </div>
-            <span className="font-semibold text-gray-700">4.9</span>
-            <span className="text-gray-500 hidden sm:inline">• Based on 127 reviews</span>
+            <span className="font-semibold text-gray-700">5/5</span>
+            <span className="text-gray-500 hidden sm:inline">• Based on real reviews</span>
           </div>
         </div>
 
