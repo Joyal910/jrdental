@@ -89,7 +89,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Email</h3>
                     <a href="mailto:info@jrdentalclinic.com" className="text-gray-600 hover:text-teal-500 text-sm">
-                      info@jrdentalclinic.com
+                      www.jinasat500@gmail.com
                     </a>
                   </div>
                 </div>
@@ -210,6 +210,7 @@ const Contact = () => {
                       <option value="Teeth Whitening">Teeth Whitening</option>
                       <option value="Pediatric Dental Care">Pediatric Care</option>
                       <option value="Dental Implants">Dental Implants</option>
+
                     </select>
                   </div>
                 </div>

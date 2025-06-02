@@ -4,8 +4,8 @@ import { Star } from 'lucide-react';
 const Reviews = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+  const [touchStart, setTouchStart] = useState({ x: null, y: null });
+  const [touchEnd, setTouchEnd] = useState({ x: null, y: null });
   
   const reviews = [
     {
@@ -24,7 +24,7 @@ const Reviews = () => {
     },
     {
       name: "Bill Lust",
-      review: "We traveled from America to visit my wife’s family, and I needed a routine cleaning. During the visit, the dentist discovered some small cavities that I wasn’t even aware of. What really stood out was his ability to take clear digital photos of my teeth, allowing me to see exactly what was going on. He even showed me detailed before-and-after pictures, which highlighted the quality of his work—a really nice touch that gave me extra confidence in the care I was receiving.The entire process was smooth and painless, and he fixed the cavities so well that it’s like they were never there. My teeth feel so much nicer after everything! The care and modern equipment at this clinic are just as good, if not better, than what I’ve experienced in the United States. I’m really impressed with the professionalism and attention to detail, and I’ll definitely be coming here for any future dental needs while visiting. Highly recommended!",
+      review: "We traveled from America to visit my wife's family, and I needed a routine cleaning. During the visit, the dentist discovered some small cavities that I wasn't even aware of. What really stood out was his ability to take clear digital photos of my teeth, allowing me to see exactly what was going on. He even showed me detailed before-and-after pictures, which highlighted the quality of his work—a really nice touch that gave me extra confidence in the care I was receiving.The entire process was smooth and painless, and he fixed the cavities so well that it's like they were never there. My teeth feel so much nicer after everything! The care and modern equipment at this clinic are just as good, if not better, than what I've experienced in the United States. I'm really impressed with the professionalism and attention to detail, and I'll definitely be coming here for any future dental needs while visiting. Highly recommended!",
       rating: 5,
       timeAgo: "3 weeks ago",
       avatar: "BL"
@@ -79,29 +79,42 @@ const Reviews = () => {
     return () => clearInterval(interval);
   }, [reviews.length, isMobile]);
 
-  // Touch handlers for swipe functionality
+  // Improved touch handlers for swipe functionality
   const handleTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchEnd({ x: null, y: null });
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY
+    });
   };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY
+    });
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart.x || !touchEnd.x || !touchStart.y || !touchEnd.y) return;
     
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 50;
-    const isRightSwipe = distance < -50;
+    const distanceX = touchStart.x - touchEnd.x;
+    const distanceY = touchStart.y - touchEnd.y;
+    const isHorizontalSwipe = Math.abs(distanceX) > Math.abs(distanceY);
+    
+    // Only handle horizontal swipes with significant distance
+    if (isHorizontalSwipe && Math.abs(distanceX) > 50) {
+      const isLeftSwipe = distanceX > 0;
+      const isRightSwipe = distanceX < 0;
 
-    if (isLeftSwipe) {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
+      if (isLeftSwipe) {
+        setCurrentIndex((prev) => (prev + 1) % reviews.length);
+      }
+      if (isRightSwipe) {
+        setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
+      }
     }
-    if (isRightSwipe) {
-      setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
-    }
+    // Allow default behavior for vertical swipes (scrolling)
   };
 
   // Get visible reviews based on screen size
@@ -160,9 +173,10 @@ const Reviews = () => {
         {/* Mobile-optimized reviews container */}
         <div className="max-w-6xl mx-auto overflow-hidden">
           <div 
-            className="flex transition-transform duration-500 ease-out touch-pan-x"
+            className="flex transition-transform duration-500 ease-out"
             style={{
-              transform: `translateX(-${currentIndex * (100 / (isMobile ? 1 : 3))}%)`
+              transform: `translateX(-${currentIndex * (100 / (isMobile ? 1 : 3))}%)`,
+              touchAction: 'pan-y pinch-zoom' // Allow vertical scrolling but enable horizontal pan detection
             }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
@@ -351,6 +365,11 @@ const Reviews = () => {
           p {
             line-height: 1.6;
           }
+        }
+
+        /* Improved touch handling */
+        .flex[style*="transform"] {
+          will-change: transform;
         }
       `}</style>
     </section>

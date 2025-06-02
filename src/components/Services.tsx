@@ -235,11 +235,34 @@ const Services = () => {
   // Calculate transform for smooth single-card movement
   const getTransform = () => {
     if (isMobile) {
-      return `translateX(-${currentIndex * (100 / 1)}%)`;
+      // Mobile: each card is 100% of viewport, move by full card width
+      return `translateX(-${currentIndex * (100 / extendedServices.length)}%)`;
     } else {
-      // For desktop: move by the width of one card
+      // Desktop: move by one card width while maintaining 5 cards visible
       const cardWidthPercent = 100 / extendedServices.length;
       return `translateX(-${currentIndex * cardWidthPercent}%)`;
+    }
+  };
+
+  // Get container width
+  const getContainerWidth = () => {
+    if (isMobile) {
+      // Mobile: each card is 100% wide, so total width is services count * 100%
+      return `${extendedServices.length * 100}%`;
+    } else {
+      // Desktop: total container width to fit all cards at 20% each
+      return `${(extendedServices.length * 100) / 5}%`;
+    }
+  };
+
+  // Get individual card width
+  const getCardWidth = () => {
+    if (isMobile) {
+      // Mobile: each card should be 100% of the viewport
+      return `${100 / extendedServices.length}%`;
+    } else {
+      // Desktop: each card should be 1/5th of the visible area (20% of viewport)
+      return `${100 / extendedServices.length}%`;
     }
   };
 
@@ -274,16 +297,18 @@ const Services = () => {
             <div 
               className="flex transition-transform duration-700 ease-in-out"
               style={{
-                width: `${extendedServices.length * (100 / visibleCount)}%`,
+                width: getContainerWidth(),
                 transform: getTransform()
               }}
             >
               {extendedServices.map((service, index) => (
                 <div 
                   key={`${service.title}-${index}`}
-                  className="group flex-shrink-0 px-3"
+                  className="group flex-shrink-0"
                   style={{
-                    width: `${100 / extendedServices.length}%`
+                    width: getCardWidth(),
+                    paddingLeft: '12px',
+                    paddingRight: '12px'
                   }}
                 >
                   <div className="bg-white/90 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 h-full transform hover:-translate-y-2 border border-white/50">
