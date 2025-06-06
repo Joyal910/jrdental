@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Joyal910.github.io/jrdental",
+  "homepage": "https://jradvanceddental.in", 
   "scripts": {
     "dev": "vite",
     "build": "vite build",
