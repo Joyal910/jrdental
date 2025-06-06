@@ -30,26 +30,42 @@ const Contact = () => {
       return;
     }
 
-    // Create WhatsApp message template
-    const message = `*New Appointment Request*
+    // Create a simpler WhatsApp message template
+    const message = `Hello! I would like to book an appointment.
 
-👤 *Name:* ${formData.name}
-📧 *Email:* ${formData.email}
-📱 *Phone:* ${formData.phone}
-🦷 *Service:* ${formData.service}
-${formData.message ? `💬 *Message:* ${formData.message}` : ''}
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Service: ${formData.service}${formData.message ? `
+Message: ${formData.message}` : ''}
 
 Please confirm my appointment. Thank you!`;
 
-    // Encode the message for WhatsApp URL
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${CLINIC_WHATSAPP}?text=${encodedMessage}`;
-
-    // Open WhatsApp in new tab
-    window.open(whatsappURL, '_blank');
-
-    // Show success message
+    // Create WhatsApp URL - using the simplest format
+    const whatsappURL = `https://wa.me/919847450050?text=${encodeURIComponent(message)}`;
+    
+    console.log('WhatsApp URL:', whatsappURL); // For debugging
+    
+    // Show success message first
     setIsSubmitted(true);
+    
+    // Try to open WhatsApp after a short delay
+    setTimeout(() => {
+      try {
+        // Create a temporary link and click it
+        const link = document.createElement('a');
+        link.href = whatsappURL;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error('Error opening WhatsApp:', error);
+        // Fallback - direct window navigation
+        window.open(whatsappURL, '_blank') || (window.location.href = whatsappURL);
+      }
+    }, 500);
     
     // Reset form after 3 seconds
     setTimeout(() => {
@@ -281,7 +297,6 @@ Please confirm my appointment. Thank you!`;
                       <option value="Teeth Whitening">Teeth Whitening</option>
                       <option value="Pediatric Dental Care">Pediatric Care</option>
                       <option value="Dental Implants">Dental Implants</option>
-                      <option value="other services">Other (add in message)</option>
                     </select>
                   </div>
                 </div>
@@ -300,15 +315,44 @@ Please confirm my appointment. Thank you!`;
                   ></textarea>
                 </div>
 
-                <button 
-                  type="submit"
-                  className="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group"
-                >
-                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  Send via WhatsApp
-                </button>
+                <div className="space-y-3">
+                  <button 
+                    type="submit"
+                    className="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!formData.name || !formData.email || !formData.phone || !formData.service}
+                  >
+                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    Send via WhatsApp
+                  </button>
+                  
+                  {/* Manual WhatsApp button as backup */}
+                  <a 
+                    href={`https://wa.me/919847450050?text=${encodeURIComponent(`Hello! I would like to book an appointment.
+
+Name: ${formData.name || '[Please fill form above]'}
+Email: ${formData.email || '[Please fill form above]'}
+Phone: ${formData.phone || '[Please fill form above]'}
+Service: ${formData.service || '[Please fill form above]'}${formData.message ? `
+Message: ${formData.message}` : ''}
+
+Please confirm my appointment. Thank you!`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group text-center no-underline"
+                  >
+                    <Phone className="w-4 h-4" />
+                    Open WhatsApp Directly
+                  </a>
+                </div>
                 
-                
+                <div className="text-center">
+                  <p className="text-xs text-gray-500 mb-2">
+                    Clicking the button will open WhatsApp with your appointment details
+                  </p>
+                  <p className="text-xs text-gray-400">
+                    Or contact us directly: <a href="tel:+919847450050" className="text-teal-500 hover:underline">+91 98474 50050</a>
+                  </p>
+                </div>
                               </div>
             )}
           </div>
