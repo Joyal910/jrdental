@@ -115,12 +115,12 @@ const Hero = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href="#contact" className="group btn-primary flex items-center justify-center gap-2 relative overflow-hidden">
+              <a href="#appointments" className="group btn-primary flex items-center justify-center gap-2 relative overflow-hidden">
                 <span className="relative z-10">Schedule Consultation</span>
                 <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-600 to-primary-700 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300"></div>
               </a>
-              <a href="tel:+914822700045" className="btn-secondary flex items-center justify-center gap-2 group">
+              <a href="tel:+919847450050" className="btn-secondary flex items-center justify-center gap-2 group">
                 <span>Contact us</span>
                 <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse group-hover:animate-none"></div>
               </a>

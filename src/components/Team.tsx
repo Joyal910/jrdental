@@ -12,17 +12,17 @@ const Team = () => {
   const topDoctors = [
     {
       name: 'Dr. Jinas A T',
-      role: 'General dentist, chief dental surgeon',
+      role: 'General dentist, Chief Dental Surgeon',
       image: jinas1,
       specialization: 'Implantology, Oral Surgery',
-      experience: '',
+      experience: 'Graduated from Pushpagiri college of dental sciences',
     },
     {
       name: 'Dr. Rukya Saju',
-      role: 'Chief Dental Surgeon',
+      role: 'General dentist , Chief Dental Surgeon',
       image: rukya,
       specialization: 'General & Preventive Dentistry',
-      experience: '',
+      experience: 'Graduated from Al-Azhar dental college',
     },
   ];
 
