@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,38 +10,141 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
 
   // WhatsApp number of the clinic
   const CLINIC_WHATSAPP = '919847450050';
 
+  // Validation functions
+  const validateName = (name) => {
+    if (!name.trim()) return 'Name is required';
+    if (name.trim().length < 2) return 'Name must be at least 2 characters';
+    if (!/^[a-zA-Z\s]+$/.test(name.trim())) return 'Name can only contain letters and spaces';
+    return '';
+  };
+
+  const validateEmail = (email) => {
+    if (!email.trim()) return 'Email is required';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) return 'Please enter a valid email address';
+    return '';
+  };
+
+  const validatePhone = (phone) => {
+    if (!phone.trim()) return 'Phone number is required';
+    const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,15}$/;
+    const digitsOnly = phone.replace(/\D/g, '');
+    if (digitsOnly.length < 10) return 'Phone number must be at least 10 digits';
+    if (digitsOnly.length > 15) return 'Phone number cannot exceed 15 digits';
+    if (!phoneRegex.test(phone.trim())) return 'Please enter a valid phone number';
+    return '';
+  };
+
+  const validateService = (service) => {
+    if (!service) return 'Please select a service';
+    return '';
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    newErrors.name = validateName(formData.name);
+    newErrors.email = validateEmail(formData.email);
+    newErrors.phone = validatePhone(formData.phone);
+    newErrors.service = validateService(formData.service);
+
+    // Remove empty error messages
+    Object.keys(newErrors).forEach(key => {
+      if (!newErrors[key]) delete newErrors[key];
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
     });
+
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: ''
+      });
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    let error = '';
+
+    switch (name) {
+      case 'name':
+        error = validateName(value);
+        break;
+      case 'email':
+        error = validateEmail(value);
+        break;
+      case 'phone':
+        error = validatePhone(value);
+        break;
+      case 'service':
+        error = validateService(value);
+        break;
+      default:
+        break;
+    }
+
+    if (error) {
+      setErrors({
+        ...errors,
+        [name]: error
+      });
+    }
+  };
+
+  const getCurrentDate = () => {
+    const now = new Date();
+    const options = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric',
+      timeZone: 'Asia/Kolkata'
+    };
+    return now.toLocaleDateString('en-IN', options);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Validate required fields
-    if (!formData.name || !formData.email || !formData.phone || !formData.service) {
-      alert('Please fill in all required fields');
+    // Validate all fields
+    if (!validateForm()) {
       return;
     }
 
-    // Create a simpler WhatsApp message template
-    const message = `Hello! I would like to book an appointment.
+    // Create the enhanced WhatsApp message template
+    const message = `🦷 APPOINTMENT REQUEST 🦷
 
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Service: ${formData.service}${formData.message ? `
-Message: ${formData.message}` : ''}
+👤 Patient Name: ${formData.name.trim()}
+📧 Email: ${formData.email.trim()}
+📱 Phone Number: ${formData.phone.trim()}
+🏥 Service Required: ${formData.service}${formData.message.trim() ? `
+💬 Additional Message: ${formData.message.trim()}` : `
+💬 Additional Message: None`}
+📅 Request Date: ${getCurrentDate()}
 
-Please confirm my appointment. Thank you!`;
+Please confirm my appointment at your earliest convenience.
 
-    // Create WhatsApp URL - using the simplest format
+---
+J R Multi Speciality Dental Clinic
+Thengena, Kerala`;
+
+    // Create WhatsApp URL
     const whatsappURL = `https://wa.me/919847450050?text=${encodeURIComponent(message)}`;
     
     console.log('WhatsApp URL:', whatsappURL); // For debugging
@@ -77,7 +180,45 @@ Please confirm my appointment. Thank you!`;
         service: '',
         message: ''
       });
+      setErrors({});
     }, 3000);
+  };
+
+  const createManualWhatsAppMessage = () => {
+    const hasRequiredFields = formData.name.trim() && formData.email.trim() && formData.phone.trim() && formData.service;
+    
+    if (!hasRequiredFields) {
+      return `🦷 APPOINTMENT REQUEST 🦷
+
+👤 Patient Name: [Please fill form above]
+📧 Email: [Please fill form above]
+📱 Phone Number: [Please fill form above]
+🏥 Service Required: [Please fill form above]
+💬 Additional Message: [Please fill form above]
+📅 Request Date: ${getCurrentDate()}
+
+Please confirm my appointment at your earliest convenience.
+
+---
+J R Multi Speciality Dental Clinic
+Thengena, Kerala`;
+    }
+
+    return `🦷 APPOINTMENT REQUEST 🦷
+
+👤 Patient Name: ${formData.name.trim()}
+📧 Email: ${formData.email.trim()}
+📱 Phone Number: ${formData.phone.trim()}
+🏥 Service Required: ${formData.service}${formData.message.trim() ? `
+💬 Additional Message: ${formData.message.trim()}` : `
+💬 Additional Message: None`}
+📅 Request Date: ${getCurrentDate()}
+
+Please confirm my appointment at your earliest convenience.
+
+---
+J R Multi Speciality Dental Clinic
+Thengena, Kerala`;
   };
 
   return (
@@ -240,10 +381,19 @@ Please confirm my appointment. Thank you!`;
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                      onBlur={handleBlur}
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm ${
+                        errors.name ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                       placeholder="John Doe"
                       required
                     />
+                    {errors.name && (
+                      <div className="flex items-center mt-1">
+                        <AlertCircle className="w-4 h-4 text-red-500 mr-1" />
+                        <span className="text-red-500 text-xs">{errors.name}</span>
+                      </div>
+                    )}
                   </div>
                   
                   <div>
@@ -255,10 +405,19 @@ Please confirm my appointment. Thank you!`;
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                      onBlur={handleBlur}
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm ${
+                        errors.email ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                       placeholder="john@example.com"
                       required
                     />
+                    {errors.email && (
+                      <div className="flex items-center mt-1">
+                        <AlertCircle className="w-4 h-4 text-red-500 mr-1" />
+                        <span className="text-red-500 text-xs">{errors.email}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -272,10 +431,19 @@ Please confirm my appointment. Thank you!`;
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                      onBlur={handleBlur}
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm ${
+                        errors.phone ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                       placeholder="+91 98765 43210"
                       required
                     />
+                    {errors.phone && (
+                      <div className="flex items-center mt-1">
+                        <AlertCircle className="w-4 h-4 text-red-500 mr-1" />
+                        <span className="text-red-500 text-xs">{errors.phone}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div>
@@ -286,7 +454,10 @@ Please confirm my appointment. Thank you!`;
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                      onBlur={handleBlur}
+                      className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm ${
+                        errors.service ? 'border-red-500 bg-red-50' : 'border-gray-300'
+                      }`}
                       required
                     >
                       <option value="">Select service</option>
@@ -298,6 +469,12 @@ Please confirm my appointment. Thank you!`;
                       <option value="Pediatric Dental Care">Pediatric Care</option>
                       <option value="Dental Implants">Dental Implants</option>
                     </select>
+                    {errors.service && (
+                      <div className="flex items-center mt-1">
+                        <AlertCircle className="w-4 h-4 text-red-500 mr-1" />
+                        <span className="text-red-500 text-xs">{errors.service}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -312,36 +489,23 @@ Please confirm my appointment. Thank you!`;
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none text-sm"
                     rows={4}
                     placeholder="Any specific concerns or preferred appointment time..."
+                    maxLength={500}
                   ></textarea>
+                  <div className="text-right mt-1">
+                    <span className="text-xs text-gray-400">{formData.message.length}/500</span>
+                  </div>
                 </div>
 
                 <div className="space-y-3">
-                  <button 
-                    type="submit"
-                    className="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={!formData.name || !formData.email || !formData.phone || !formData.service}
-                  >
-                    <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                    Send via WhatsApp
-                  </button>
-                  
-                  {/* Manual WhatsApp button as backup */}
+                  {/* Manual WhatsApp button */}
                   <a 
-                    href={`https://wa.me/919847450050?text=${encodeURIComponent(`Hello! I would like to book an appointment.
-
-Name: ${formData.name || '[Please fill form above]'}
-Email: ${formData.email || '[Please fill form above]'}
-Phone: ${formData.phone || '[Please fill form above]'}
-Service: ${formData.service || '[Please fill form above]'}${formData.message ? `
-Message: ${formData.message}` : ''}
-
-Please confirm my appointment. Thank you!`)}`}
+                    href={`https://wa.me/919847450050?text=${encodeURIComponent(createManualWhatsAppMessage())}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full bg-green-500 hover:bg-green-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group text-center no-underline"
                   >
-                    <Phone className="w-4 h-4" />
-                    Open WhatsApp Directly
+                    <Send className="w-4 h-4" />
+                    Send via WhatsApp
                   </a>
                 </div>
                 
@@ -353,7 +517,7 @@ Please confirm my appointment. Thank you!`)}`}
                     Or contact us directly: <a href="tel:+919847450050" className="text-teal-500 hover:underline">+91 98474 50050</a>
                   </p>
                 </div>
-                              </div>
+                </div>
             )}
           </div>
         </div>
