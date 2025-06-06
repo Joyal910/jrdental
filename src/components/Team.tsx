@@ -4,7 +4,9 @@ import joshy from "../assets/doctors/joshy.png";
 import ravi from "../assets/doctors/ravi.png";
 import rino from "../assets/doctors/rino.png";
 import jinas1 from "../assets/doctors/jinas1.png";
-
+import lovin from "../assets/doctors/lovin.png";
+import rukya from "../assets/doctors/rukya.jpg";
+import amal from "../assets/doctors/amal.png";
 
 const Team = () => {
   const topDoctors = [
@@ -13,15 +15,14 @@ const Team = () => {
       role: 'General dentist, chief dental surgeon',
       image: jinas1,
       specialization: 'Implantology, Oral Surgery',
-      experience: '12+ years experience',
+      experience: '',
     },
     {
       name: 'Dr. Rukya Saju',
       role: 'Chief Dental Surgeon',
-      image:
-        'https://images.pexels.com/photos/5214959/pexels-photo-5214959.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      image: rukya,
       specialization: 'General & Preventive Dentistry',
-      experience: '10+ years experience',
+      experience: '',
     },
   ];
 
@@ -36,8 +37,7 @@ const Team = () => {
     {
       name: 'Dr. Lovin Valsan Mathew',
       role: 'Endodontist',
-      image:
-        'https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      image: lovin,
       specialization: 'Root Canal Specialist',
       experience: 'Asst. Prof. Pushpagiri Dental College',
     },
@@ -51,8 +51,7 @@ const Team = () => {
     {
       name: 'Dr. Amal K Aby',
       role: 'Orthodontist',
-      image:
-        'https://images.pexels.com/photos/4269358/pexels-photo-4269358.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+      image: amal,
       specialization: 'Braces, Smile Alignment',
       experience: 'MDS, Orthodontics',
     },

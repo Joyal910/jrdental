@@ -11,6 +11,9 @@ const Contact = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // WhatsApp number of the clinic
+  const CLINIC_WHATSAPP = '919847450050';
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -20,8 +23,45 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.service) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    // Create WhatsApp message template
+    const message = `*New Appointment Request*
+
+👤 *Name:* ${formData.name}
+📧 *Email:* ${formData.email}
+📱 *Phone:* ${formData.phone}
+🦷 *Service:* ${formData.service}
+${formData.message ? `💬 *Message:* ${formData.message}` : ''}
+
+Please confirm my appointment. Thank you!`;
+
+    // Encode the message for WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${CLINIC_WHATSAPP}?text=${encodedMessage}`;
+
+    // Open WhatsApp in new tab
+    window.open(whatsappURL, '_blank');
+
+    // Show success message
     setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        service: '',
+        message: ''
+      });
+    }, 3000);
   };
 
   return (
@@ -49,7 +89,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Location</h3>
                     <p className="text-gray-600 text-sm leading-relaxed">
-                     GROUND FLOOR, MUKKADA EDIFICE, Karukachal - Changanacherry Rd,<br />
+                      GROUND FLOOR, MUKKADA EDIFICE, Karukachal - Changanacherry Rd,<br />
                       Thengena, Kerala 686536
                     </p>
                   </div>
@@ -71,11 +111,10 @@ const Contact = () => {
                         +91 73565 62983
                       </a>
                       
-                      <h3 className="font-bold text-gray-900 mb-1">WhatsApp</h3>
-                        <a href="https://wa.me/919847450050"className="text-gray-600 hover:text-teal-500 text-sm block">
-                          +91 98474 50050
-                        </a>
-                      
+                      <h3 className="font-bold text-gray-900 mb-1 mt-2">WhatsApp</h3>
+                      <a href="https://wa.me/919847450050" className="text-gray-600 hover:text-teal-500 text-sm block">
+                        +91 98474 50050
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -88,8 +127,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-gray-900 mb-1">Email</h3>
-                    <a href="mailto:info@jrdentalclinic.com" className="text-gray-600 hover:text-teal-500 text-sm">
-                      www.jinasat500@gmail.com
+                    <a href="mailto:jinasat500@gmail.com" className="text-gray-600 hover:text-teal-500 text-sm">
+                      jinasat500@gmail.com
                     </a>
                   </div>
                 </div>
@@ -104,7 +143,7 @@ const Contact = () => {
                     <h3 className="font-bold text-gray-900 mb-1">Hours</h3>
                     <div className="text-sm text-gray-600">
                       <p>Mon-Sat: 9AM-8PM</p>
-                      <p>Sun: Open Based on Appoinments</p>
+                      <p>Sun: Open Based on Appointments</p>
                     </div>
                   </div>
                 </div>
@@ -113,17 +152,45 @@ const Contact = () => {
 
             {/* Map */}
             <div className="bg-white rounded-lg shadow-sm p-4">
-              <div className="rounded-lg overflow-hidden">
-                <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3935.3807228456576!2d76.57889899999999!3d9.4755752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062fe4162c26ad%3A0x9a9faa39896c89b8!2sJ%20R%20Multi%20Speciality%20Dental%20Clinic%20%26%20Implant%20Center!5e0!3m2!1sen!2sin!4v1748193797894!5m2!1sen!2sin" 
-                  width="100%" 
-                  height="300" 
-                  style={{border:0}} 
-                  allowFullScreen="" 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full rounded-lg"
-                ></iframe>
+              <h3 className="font-bold text-gray-900 mb-3 flex items-center">
+                <MapPin className="w-5 h-5 text-teal-500 mr-2" />
+                Find Us
+              </h3>
+              <div className="rounded-lg overflow-hidden relative">
+                <div className="w-full h-64 md:h-80 bg-gray-100 rounded-lg overflow-hidden">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3935.3807228456576!2d76.57889899999999!3d9.4755752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062fe4162c26ad%3A0x9a9faa39896c89b8!2sJ%20R%20Multi%20Speciality%20Dental%20Clinic%20%26%20Implant%20Center!5e0!3m2!1sen!2sin!4v1748193797894!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style={{border:0, minHeight: '256px'}} 
+                    allowFullScreen="" 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full rounded-lg"
+                    title="J R Multi Speciality Dental Clinic Location"
+                  ></iframe>
+                </div>
+              </div>
+              
+              {/* Mobile-friendly address and directions */}
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <p className="text-sm text-gray-600 leading-relaxed">
+                      GROUND FLOOR, MUKKADA EDIFICE<br />
+                      Karukachal - Changanacherry Rd<br />
+                      Thengena, Kerala 686536
+                    </p>
+                  </div>
+                  <a 
+                    href="https://maps.google.com/maps?q=J+R+Multi+Speciality+Dental+Clinic+%26+Implant+Center,+Thengena,+Kerala"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ml-4 bg-teal-500 hover:bg-teal-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-300 whitespace-nowrap"
+                  >
+                    Get Directions
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -134,7 +201,7 @@ const Contact = () => {
               <h3 className="text-2xl font-bold text-gray-900 mb-2">
                 Book <span className="text-teal-500">Appointment</span>
               </h3>
-              <p className="text-gray-600 text-sm">Fill the form and we'll contact you shortly</p>
+              <p className="text-gray-600 text-sm">Fill the form and we'll contact you via WhatsApp</p>
             </div>
             
             {isSubmitted ? (
@@ -142,8 +209,8 @@ const Contact = () => {
                 <div className="bg-green-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
                   <CheckCircle className="w-8 h-8 text-green-500" />
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-2">Thank You!</h4>
-                <p className="text-gray-600 text-sm">We'll contact you within 24 hours.</p>
+                <h4 className="text-lg font-bold text-gray-900 mb-2">Request Sent!</h4>
+                <p className="text-gray-600 text-sm">Your appointment request has been sent via WhatsApp. We'll confirm your appointment shortly.</p>
               </div>
             ) : (
               <div className="space-y-4">
@@ -159,6 +226,7 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                       placeholder="John Doe"
+                      required
                     />
                   </div>
                   
@@ -173,6 +241,7 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                       placeholder="john@example.com"
+                      required
                     />
                   </div>
                 </div>
@@ -189,6 +258,7 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
                       placeholder="+91 98765 43210"
+                      required
                     />
                   </div>
 
@@ -201,6 +271,7 @@ const Contact = () => {
                       value={formData.service}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 text-sm"
+                      required
                     >
                       <option value="">Select service</option>
                       <option value="General Checkup">General Checkup</option>
@@ -210,7 +281,7 @@ const Contact = () => {
                       <option value="Teeth Whitening">Teeth Whitening</option>
                       <option value="Pediatric Dental Care">Pediatric Care</option>
                       <option value="Dental Implants">Dental Implants</option>
-
+                      <option value="other services">Other (add in message)</option>
                     </select>
                   </div>
                 </div>
@@ -225,18 +296,20 @@ const Contact = () => {
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 resize-none text-sm"
                     rows={4}
-                    placeholder="Any specific concerns..."
+                    placeholder="Any specific concerns or preferred appointment time..."
                   ></textarea>
                 </div>
 
                 <button 
-                  onClick={handleSubmit} 
+                  type="submit"
                   className="w-full bg-teal-500 hover:bg-teal-600 text-white font-medium py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group"
                 >
                   <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  Book Appointment
+                  Send via WhatsApp
                 </button>
-              </div>
+                
+                
+                              </div>
             )}
           </div>
         </div>

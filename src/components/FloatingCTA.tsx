@@ -15,7 +15,7 @@ const FloatingCTA = () => {
       </a>
       
       <a
-        href="tel:+917356562983"
+        href="tel:+919847450050"
         className="flex items-center gap-2 bg-secondary text-white px-4 py-3 rounded-full hover:bg-secondary-600 transition-all shadow-lg hover:scale-105"
       >
         <Phone className="h-6 w-6" />
